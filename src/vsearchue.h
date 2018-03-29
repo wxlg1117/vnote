@@ -55,6 +55,8 @@ protected:
 private slots:
     void handleSearchItemAdded(const QSharedPointer<VSearchResultItem> &p_item);
 
+    void handleSearchItemsAdded(const QList<QSharedPointer<VSearchResultItem> > &p_items);
+
     void handleSearchFinished(const QSharedPointer<VSearchResult> &p_result);
 
     void activateItem(QListWidgetItem *p_item);

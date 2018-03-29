@@ -136,6 +136,9 @@ void VUniversalEntry::showEvent(QShowEvent *p_event)
 {
     QWidget::showEvent(p_event);
 
+    // Fix Chinese input method issue.
+    activateWindow();
+
     m_cmdEdit->setFocus();
 }
 
@@ -293,6 +296,18 @@ void VUniversalEntry::keyPressEvent(QKeyEvent *p_event)
                 processCommand();
                 return;
             }
+        }
+
+        break;
+
+    case Qt::Key_D:
+        if (VUtils::isControlModifierForVim(modifiers)) {
+            // Ctrl+D to cancel current command.
+            m_pendingCommand = false;
+            if (m_lastEntry) {
+                m_lastEntry->m_entry->askToStop(m_lastEntry->m_id);
+            }
+            return;
         }
 
         break;
